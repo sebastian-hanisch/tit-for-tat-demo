@@ -26,6 +26,7 @@ Strategien, nicht nur über die sechs. Ein Paar ist ein Gleichgewicht, wenn kein
 
 ## Methodik
 
+- **Strategien erklärt:** Die App zeigt eine Überblickstabelle der sechs Strategien (Beschreibung und ihre eigenen ersten acht Aktionen gegen Immer-D und gegen einen Abwechsler) und erklärt die gewählten Strategien A und B in der Seitenleiste (`tft_evaluation.strategy_overview`, Test `test_strategy_overview_traces_by_hand`).
 - **Wert eines Paares:** lineares System `(I − δP) V = u` über die gemeinsamen Zustände (`tft_algorithm.discounted_value`).
 - **Beste Antwort:** Politikiteration über die Zustände des Gegners (`best_response_policy`), exakt und mit wenigen Schritten.
 - **Gleichgewicht und Schwelle:** `is_equilibrium`, `equilibrium_threshold` (kleinstes δ auf dem Raster, ab dem das Paar für alle größeren δ trägt).

@@ -128,3 +128,14 @@ def test_verdict_names_the_threshold_and_levels():
 def test_deviations_catalog_is_alld_alternate_one_shot():
     assert [d.key for d in DEVIATIONS] == ["ALLD", "ALT", "ONE"]
     assert ALTERNATE.key == "ALT" and ONE_SHOT.key == "ONE"
+
+
+def test_strategy_overview_traces_by_hand():
+    rows = {r["key"]: r for r in ev.strategy_overview()}
+    assert rows["TFT"]["vs_alld"] == "C D D D D D D D"
+    assert rows["TFT"]["vs_alt"] == "C D C D C D C D"
+    assert rows["GRIM"]["vs_alt"] == "C D D D D D D D"
+    assert rows["TF2T"]["vs_alld"] == "C C D D D D D D"
+    assert rows["PAVLOV"]["vs_alld"] == "C D C D C D C D"
+    assert rows["ALLC"]["vs_alld"] == "C C C C C C C C" and rows["ALLD"]["vs_alt"] == "D D D D D D D D"
+    assert all(r["description"] for r in rows.values())

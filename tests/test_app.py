@@ -71,3 +71,14 @@ def test_permalink_selects_strategies_and_runs():
     assert not at.exception, [str(e) for e in at.exception]
     assert at.session_state["a_select"] == "GRIM" and at.session_state["b_select"] == "ALLD"
     assert any("Gleichgewicht" in m.label for m in at.metric)
+
+
+def test_every_strategy_is_explained_on_the_page():
+    """Die Seite erklärt die Strategien: Überblickstabelle mit allen Beschreibungen und die Beschreibung der gewählten Strategie in der Seitenleiste."""
+    from tft_scenario import STRATEGIES
+    at = _fresh_app()
+    text = " ".join(m.value for m in at.markdown)
+    for strategy in STRATEGIES.values():
+        assert strategy.description in text, strategy.key
+    captions = " ".join(c.value for c in at.caption)
+    assert STRATEGIES["TFT"].description in captions

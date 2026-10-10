@@ -81,6 +81,21 @@ with st.expander("So funktioniert Tit-for-Tat", expanded=True):
         """
     )
 
+with st.expander("Die sechs Strategien: wer macht was?", expanded=True):
+    st.markdown(
+        "Jede Strategie entscheidet jede Woche, ob sie **kooperiert (C)** oder **defektiert (D)**, und kennt dafür nur, was bisher passiert ist. "
+        "Die beiden rechten Spalten zeigen, was die Strategie in den ersten acht Wochen **selbst tut**, wenn der Gegner immer defektiert "
+        "beziehungsweise abwechselnd defektiert und kooperiert (D, C, D, C, …). Daran sieht man, wer vergibt und wer nicht."
+    )
+    rows_md = ["| Strategie | Verhalten | Gegen Immer-D | Gegen Abwechsler (D, C, …) |", "|---|---|---|---|"]
+    for r in E.strategy_overview():
+        rows_md.append(f"| **{r['label']}** | {r['description']} | `{r['vs_alld']}` | `{r['vs_alt']}` |")
+    st.markdown("\n".join(rows_md))
+    st.caption(
+        "Lesebeispiel: Gegen den Abwechsler bleibt Tit-for-Tat bei „C D C D …“, weil es jede Aktion nur zurückspielt; Grim Trigger bleibt nach der "
+        "ersten Defektion für immer bei D."
+    )
+
 st.caption("🎯 Schnellstart – ein Beispielszenario laden:")
 cols = st.columns(len(C.PRESETS))
 for col, name in zip(cols, C.PRESETS):
@@ -102,6 +117,8 @@ with st.sidebar:
                          help="Die Strategie von Spediteur A (Zeile in den Tabellen).")
     b_key = st.selectbox("Spediteur B", C.STRATEGY_KEYS, key="b_select", format_func=lambda k: STRATEGIES[k].label,
                          help="Die Strategie von Spediteur B (Spalte in den Tabellen).")
+    st.caption(f"**A, {STRATEGIES[a_key].label}:** {STRATEGIES[a_key].description}")
+    st.caption(f"**B, {STRATEGIES[b_key].label}:** {STRATEGIES[b_key].description}")
     st.markdown("**Auszahlungen je Woche (in 100 EUR)**")
     t_val = st.slider("T: nur nutzen, nichts anbieten", *bounds("t_slider"), step=C.T_STEP, key="t_slider",
                       help="Versuchung: ich nutze die Rückladung des anderen und biete nichts an. Muss über R = 3 liegen.")

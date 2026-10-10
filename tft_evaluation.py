@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 import tft_algorithm as A
 import tft_constants as C
-from tft_scenario import DEVIATIONS, STRATEGIES, Game, make_game
+from tft_scenario import ALTERNATE, DEVIATIONS, STRATEGIES, Game, make_game
 
 
 def fmt(x: float, digits: int = 2) -> str:
@@ -76,6 +76,25 @@ def analyse(settings: Settings) -> Analysis:
         threshold=A.equilibrium_threshold(a, b, game, step=0.01),
         expected_rounds=A.expected_rounds(d),
     )
+
+
+def action_string(actions) -> str:
+    """Aktionsfolge als „C D D …“ (C = kooperiert, D = defektiert)."""
+    return " ".join("C" if a == C.COOPERATE else "D" for a in actions)
+
+
+def strategy_overview(rounds: int = 8) -> list[dict]:
+    """Je Strategie: Beschreibung und die eigenen ersten `rounds` Aktionen gegen Immer-Defektieren und gegen einen Abwechsler (D, C, D, C, …).
+
+    Beide Spuren machen sichtbar, was die Worte meinen: wer vergibt, wer nie wieder kooperiert, wer sofort zurückkehrt."""
+    rows = []
+    for key in C.STRATEGY_KEYS:
+        auto = STRATEGIES[key]
+        vs_alld = [x for x, _ in A.play(auto, STRATEGIES["ALLD"], rounds)]
+        vs_alt = [x for x, _ in A.play(auto, ALTERNATE, rounds)]
+        rows.append({"key": key, "label": auto.label, "description": auto.description,
+                     "vs_alld": action_string(vs_alld), "vs_alt": action_string(vs_alt)})
+    return rows
 
 
 def payoff_matrix(game: Game, delta: float) -> list[list[float]]:
