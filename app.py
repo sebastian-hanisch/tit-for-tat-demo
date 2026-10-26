@@ -69,6 +69,21 @@ Auszahlungen sind Modellannahmen (gewählt, nicht gemessen), kein Befund über e
 """
 )
 
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/tit-for-tat-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Zwei Spediteure können sich jede Woche eine Rückladung anbieten. Einzeln betrachtet lohnt es sich, die Rückladung des anderen nur zu nutzen. Treffen sich beide nur einmal, ist das die beste Wahl, obwohl beide mit gegenseitigem Tauschen besser führen. Ein solches Spiel heißt **Gefangenendilemma**.
+
+Treffen sich beide jede Woche **wieder**, kann **Tit-for-Tat** helfen: in der ersten Woche anbieten, danach tun, was der andere zuletzt getan hat. Wer nur nutzt, bekommt in der nächsten Woche selbst nichts angeboten.
+
+Entscheidend ist der **Schatten der Zukunft**: die Wahrscheinlichkeit, dass die Beziehung nach einer Woche weiterläuft. Erst ab einer Schwelle trägt die Drohung. Die Demo rechnet diese Schwelle exakt aus und prüft jede mögliche Abweichung, nicht nur einige. Kooperation ist dabei ein stabiler Zustand unter mehreren, keine Vorhersage.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/tit-for-tat-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
+
 with st.expander("So funktioniert Tit-for-Tat", expanded=True):
     st.markdown(
         """
@@ -251,6 +266,27 @@ st.markdown(
 st.markdown("---")
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/tit-for-tat-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind ein Spiel mit den Auszahlungen $T$, $R$, $P$, $S$, die Fortsetzungswahrscheinlichkeit $\delta$ und zwei Strategien als Automaten. Gesucht ist der diskontierte Wert beider Spieler und die Frage, ab welchem $\delta$ keine Abweichung lohnt (Gleichgewicht).
+
+| Symbol | Bedeutung |
+|---|---|
+| $C$, $D$ | kooperieren (Rückladung anbieten) bzw. defektieren (die des anderen nur nutzen) |
+| $T$, $R$, $P$, $S$ | Auszahlung je Woche: nur nutzen ($T$), beide tauschen ($R$), keiner tauscht ($P$), angeboten und nichts bekommen ($S$) |
+| $\delta$ | Schatten der Zukunft: Wahrscheinlichkeit, dass die Beziehung nach einer Woche weiterläuft; erwartete Dauer $1/(1-\delta)$ Wochen |
+| $s$, $s'$ | Zustand eines Automaten bzw. sein Folgezustand |
+| $u(s)$ | Auszahlung des Spielers im gemeinsamen Zustand $s$ der beiden Automaten |
+| $P$ (in $I - \delta P$) | Übergangsmatrix der gemeinsamen Zustände (nicht die Auszahlung $P$); $I$ ist die Einheitsmatrix |
+| $V$ | diskontierter Wert eines Strategiepaares (Vektor über die gemeinsamen Zustände) |
+| $W(s)$ | bester erreichbarer Wert gegen einen festen Automaten, wenn dieser im Zustand $s$ ist |
+| $x$ | gewählte Aktion in der Bellman-Gleichung für die beste Antwort ($C$ oder $D$) |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/tit-for-tat-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Spiel.** Je Runde wählen beide Spieler $C$ (kooperieren) oder $D$ (defektieren). Auszahlungen für den Spieler, dessen Aktion zuerst steht:
