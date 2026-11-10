@@ -2,7 +2,7 @@
 Sebastian Hanisch - Operations Research und Machine Learning
 
 Wurzel der Wiederholte-Spiele-Linie: zwei Spediteure tauschen jede Woche Rückladungen (Gefangenendilemma) und treffen sich wieder.
-Gezeigt wird, ab welchem Diskontfaktor δ die Drohung der Vergeltung Kooperation trägt, gegen ALLE möglichen Abweichungen geprüft.
+Gezeigt wird, ab welchem Diskontfaktor δ die Drohung der Vergeltung Kooperation stabil hält, gegen ALLE möglichen Abweichungen geprüft.
 
 Lauffähig mit: streamlit run app.py
 """
@@ -60,8 +60,8 @@ st.markdown(
     """
 Zwei Spediteure fahren dieselbe Relation. Jede Woche kann jeder eine **Rückladung anbieten** (kooperieren) oder die des anderen **nur nutzen**
 (defektieren). Im Einmalspiel lohnt Defektion immer, das zeigt [nash-demo](https://sebastianhanisch-nash-demo.streamlit.app/) für
-Überlastungsspiele. Treffen sich beide **wieder**, kann die Drohung der Vergeltung Kooperation tragen, aber nur, wenn die Beziehung lang genug
-weiterläuft: Das ist der **Schatten der Zukunft** δ. Diese Demo prüft **exakt**, ab welchem δ Tit-for-Tat und seine Verwandten tragen, gegen
+Überlastungsspiele. Treffen sich beide **wieder**, kann die Drohung der Vergeltung Kooperation stabil halten, aber nur, wenn die Beziehung lang genug
+weiterläuft: Das ist der **Schatten der Zukunft** δ. Diese Demo prüft **exakt**, ab welchem δ Tit-for-Tat und seine Verwandten halten, gegen
 *jede* mögliche Abweichung.
 
 Weiter unten: drei Experimente (**🔬**), **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**. Eigennutz und die
@@ -77,7 +77,7 @@ Zwei Spediteure können sich jede Woche eine Rückladung anbieten. Einzeln betra
 
 Treffen sich beide jede Woche **wieder**, kann **Tit-for-Tat** helfen: in der ersten Woche anbieten, danach tun, was der andere zuletzt getan hat. Wer nur nutzt, bekommt in der nächsten Woche selbst nichts angeboten.
 
-Entscheidend ist der **Schatten der Zukunft**: die Wahrscheinlichkeit, dass die Beziehung nach einer Woche weiterläuft. Erst ab einer Schwelle trägt die Drohung. Die Demo rechnet diese Schwelle exakt aus und prüft jede mögliche Abweichung, nicht nur einige. Kooperation ist dabei ein stabiler Zustand unter mehreren, keine Vorhersage.
+Entscheidend ist der **Schatten der Zukunft**: die Wahrscheinlichkeit, dass die Beziehung nach einer Woche weiterläuft. Erst ab einer Schwelle hält die Drohung. Die Demo rechnet diese Schwelle exakt aus und prüft jede mögliche Abweichung, nicht nur einige. Kooperation ist dabei ein stabiler Zustand unter mehreren, keine Vorhersage.
 
 [Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/tit-for-tat-erklaert.html)
         """
@@ -90,7 +90,7 @@ with st.expander("So funktioniert Tit-for-Tat", expanded=True):
 1. **Runde 1: kooperieren.** Tit-for-Tat beginnt freundlich.
 2. **Danach: genau das tun, was der andere zuletzt getan hat.** Wer defektiert, wird in der nächsten Woche mit Defektion beantwortet; wer
    zur Kooperation zurückkehrt, bekommt sie sofort zurück.
-3. **Warum das tragen kann:** Eine Defektion bringt einmal *T* statt *R*, kostet aber die Strafe in den Folgewochen. Ab einem
+3. **Warum das halten kann:** Eine Defektion bringt einmal *T* statt *R*, kostet aber die Strafe in den Folgewochen. Ab einem
    Schwellen-δ ist der diskontierte Verlust größer als der Gewinn, und niemand hat einen Grund abzuweichen. Die Demo rechnet das nicht
    nur für Tit-for-Tat, sondern gegen die **beste mögliche Antwort** aus.
         """
@@ -171,7 +171,7 @@ st.caption(
 
 # --- Kernfrage -----------------------------------------------------------------------------------------------------------------------------
 
-st.markdown("## ❓ Kernfrage: Trägt Kooperation bei diesem Schatten der Zukunft?")
+st.markdown("## ❓ Kernfrage: Hält Kooperation bei diesem Schatten der Zukunft?")
 level, sentence = E.verdict(an, settings)
 {"success": st.success, "warning": st.warning, "info": st.info}[level](sentence)
 
@@ -182,7 +182,7 @@ st.markdown("---")
 st.subheader("🔬 Experiment: Ab welchem δ lohnt die beste Abweichung nicht mehr?")
 st.caption(
     f"Mittlere Auszahlung je Woche von A ({label_a}) gegen B ({label_b}): wenn A bei seiner Strategie bleibt (grün) gegen die beste Antwort aus "
-    "allen Strategien (rot gestrichelt). Wo die grüne Linie die rote berührt, trägt das Paar."
+    "allen Strategien (rot gestrichelt). Wo die grüne Linie die rote berührt, hält das Paar."
 )
 curves = _curves(settings)
 st.plotly_chart(build_delta_curves(curves, an.threshold, f"A bleibt bei {label_a}", "A weicht optimal ab"), width="stretch", key="delta_chart")
@@ -202,7 +202,7 @@ tft_row = next(r for r in table if r["key"] == "TFT")
 grim_row = next(r for r in table if r["key"] == "GRIM")
 if tft_row["threshold"] is not None and grim_row["threshold"] is not None and tft_row["threshold"] > grim_row["threshold"] + 1e-9:
     st.info(
-        f"Grim Trigger trägt schon ab δ = {fmt(grim_row['threshold'], 2)}, Tit-for-Tat erst ab δ = {fmt(tft_row['threshold'], 2)}. Der Unterschied ist "
+        f"Grim Trigger hält schon ab δ = {fmt(grim_row['threshold'], 2)}, Tit-for-Tat erst ab δ = {fmt(tft_row['threshold'], 2)}. Der Unterschied ist "
         "die **Nachsicht**: Gegen Tit-for-Tat lohnt das Abwechseln von Defektion und Kooperation, weil nach jeder Defektion sofort wieder "
         "kooperiert wird; Grim lässt diese Lücke nicht."
     )
@@ -255,7 +255,7 @@ st.markdown(
     """
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
-| **Die Auszahlungen 5/3/1/0 stimmen** | Sie sind gewählt, nicht gemessen. Die Schwellen verschieben sich mit T, P und S (Regler); die Aussage „ab δ trägt es“ gilt nur für diese Zahlen. | - |
+| **Die Auszahlungen 5/3/1/0 stimmen** | Sie sind gewählt, nicht gemessen. Die Schwellen verschieben sich mit T, P und S (Regler); die Aussage „ab δ hält es“ gilt nur für diese Zahlen. | - |
 | **Beide beobachten die Aktion des anderen fehlerfrei** | Das Modell kennt keine Verwechslung und keinen Fehlgriff. Was ein einzelner Fehler bei Tit-for-Tat auslöst, zeigt diese Demo nicht. | - |
 | **Genau zwei feste Partner, immer dieselben** | Wechselnde Partner brauchen Reputation statt Gedächtnis: dieses Modell kennt weder Dritte noch Bündnisse. | - |
 | **Das Ende ist unbekannt (Fortsetzungswahrscheinlichkeit δ)** | Ein bekanntes Ende ändert die Rechnung: die Strafdrohung der letzten Runde fällt weg. δ ist hier eine Wahrscheinlichkeit, kein Zeitpräferenz-Faktor. | - |

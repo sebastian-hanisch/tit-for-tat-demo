@@ -153,7 +153,7 @@ def equilibrium_map(game: Game, deltas=C.DELTA_GRID) -> list[list[bool]]:
 
 
 def verdict(an: Analysis, settings: Settings) -> tuple[str, str]:
-    """(Stufe, Satz) für die Kernfrage: trägt die Kooperation zwischen a und b bei diesem δ?"""
+    """(Stufe, Satz) für die Kernfrage: hält die Kooperation zwischen a und b bei diesem δ?"""
     a, b = STRATEGIES[settings.a], STRATEGIES[settings.b]
     d = settings.delta
     if an.is_equilibrium:
@@ -167,4 +167,4 @@ def verdict(an: Analysis, settings: Settings) -> tuple[str, str]:
         return "warning", (f"{a.label} gegen {b.label} ist bei **keinem** δ ein Gleichgewicht: {who} gewinnt durch Abweichen "
                            f"{fmt(gain)} (diskontiert) bei δ = {fmt(d)}.")
     return "warning", (f"Bei δ = {fmt(d)} lohnt das Abweichen: {who} gewinnt {fmt(gain)} (diskontiert). "
-                       f"Das Paar trägt erst ab δ = {fmt(an.threshold)}.")
+                       f"Das Paar hält erst ab δ = {fmt(an.threshold)}.")

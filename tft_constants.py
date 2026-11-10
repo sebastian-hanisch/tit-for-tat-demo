@@ -36,7 +36,7 @@ PRESETS = {
     "Kurzer Schatten (δ = 0,40)": {
         "delta": 0.40, "t": DEFAULT_T, "p": DEFAULT_P, "s": DEFAULT_S, "a": "TFT", "b": "TFT", "rounds": DEFAULT_ROUNDS,
     },
-    "Grim trägt, TFT nicht (δ = 0,60)": {
+    "Grim hält, TFT nicht (δ = 0,60)": {
         "delta": 0.60, "t": DEFAULT_T, "p": DEFAULT_P, "s": DEFAULT_S, "a": "GRIM", "b": "GRIM", "rounds": DEFAULT_ROUNDS,
     },
     "Knapp unter der TFT-Schwelle (δ = 0,66)": {
@@ -47,9 +47,9 @@ PRESETS = {
     },
 }
 PRESET_HELP = {
-    "Standardfall: TFT gegen TFT (δ = 0,80)": "Zwei Spediteure mit Tit-for-Tat, Auszahlungen 5/3/1/0, die Beziehung läuft im Mittel fünf Wochen weiter. Kooperation trägt.",
+    "Standardfall: TFT gegen TFT (δ = 0,80)": "Zwei Spediteure mit Tit-for-Tat, Auszahlungen 5/3/1/0, die Beziehung läuft im Mittel fünf Wochen weiter. Kooperation hält.",
     "Kurzer Schatten (δ = 0,40)": "Die Beziehung endet schnell (im Mittel 1,7 Wochen): jetzt lohnt Defektion, auch gegen Tit-for-Tat.",
-    "Grim trägt, TFT nicht (δ = 0,60)": "Zwischen den beiden Schwellen: Grim Trigger hält Kooperation stabil, Tit-for-Tat gegen Tit-for-Tat nicht mehr.",
+    "Grim hält, TFT nicht (δ = 0,60)": "Zwischen den beiden Schwellen: Grim Trigger hält Kooperation stabil, Tit-for-Tat gegen Tit-for-Tat nicht mehr.",
     "Knapp unter der TFT-Schwelle (δ = 0,66)": "Die Schwelle von Tit-for-Tat liegt bei 2/3: knapp darunter lohnt das Abwechseln von Defektion und Kooperation.",
     "Ausbeutung: TFT gegen Immer-D": "Tit-for-Tat wird nur in der ersten Woche ausgebeutet (S gegen T); danach bekommen beide P. Für Immer-Defektieren wäre Kooperation mit Tit-for-Tat besser.",
 }
