@@ -1,7 +1,6 @@
 # Tit-for-Tat und der Schatten der Zukunft – Streamlit-Demo
 
-<!-- Nach dem Deploy direkt hierher den Live-Link setzen (Leerzeile davor und danach):
-**[→ Demo live ausprobieren](https://sebastianhanisch-tit-for-tat-demo.streamlit.app/)** -->
+**[→ Demo live ausprobieren](https://sebastianhanisch-tit-for-tat-demo.streamlit.app/)**
 
 Erstes Stück der **Wiederholte-Spiele-Linie** in der „Konzepte“-Reihe für die Website „Sebastian Hanisch – Operations Research und Machine Learning“.
 Wurzel der Linie. Vorgänger außerhalb der Linie ist [nash-demo](https://sebastianhanisch-nash-demo.streamlit.app/): dort ist das Spiel einmalig und Eigennutz gewinnt
